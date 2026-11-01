@@ -6,7 +6,7 @@ setup(
     description="The Economically-Aware Multi-Region Inference Load Balancer",
     author="Bhaskar Pandey",
     author_email="bhaskarauthor@gmail.com",
-    url="https://github.com/bhaskarpandey/inferacap",
+    url="https://github.com/bhaskarpandey2708/inferacap",
     packages=find_packages(),
     py_modules=[
         "inferacap",

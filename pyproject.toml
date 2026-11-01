@@ -44,6 +44,6 @@ inferacap-showcase = "demo_terminal_walkthrough:main"
 inferacap-kaggle = "gateway.inferacap_kaggle_worker:main"
 
 [project.urls]
-Homepage = "https://github.com/bhaskarpandey/inferacap"
-Documentation = "https://github.com/bhaskarpandey/inferacap#readme"
-Issues = "https://github.com/bhaskarpandey/inferacap/issues"
+Homepage = "https://github.com/bhaskarpandey2708/inferacap"
+Documentation = "https://github.com/bhaskarpandey2708/inferacap#readme"
+Issues = "https://github.com/bhaskarpandey2708/inferacap/issues"
