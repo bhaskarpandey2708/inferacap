@@ -2,7 +2,8 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0_|_Commercial-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.9_|_3.10_|_3.11_|_3.12-brightgreen.svg)](pyproject.toml)
-[![Tests](https://img.shields.io/badge/Tests-64_Passing-emerald.svg)](tests/)
+[![Tests](https://img.shields.io/badge/Tests-65_Passing-emerald.svg)](tests/)
+[![Security](https://img.shields.io/badge/Security-Zero--Persistence_|_In--VPC-success.svg)](SECURITY.md)
 [![Architecture](https://img.shields.io/badge/Architecture-Clean--Room_Independent-blueviolet.svg)](#architecture)
 [![Overhead](https://img.shields.io/badge/Proxy_Overhead-%3C1.8ms-orange.svg)](#performance)
 
@@ -122,6 +123,18 @@ python3 demo_cli_video.py
 # Or open interactive video player in browser
 open demo_terminal_video.html
 ```
+
+---
+
+## 🔒 Enterprise Security & KV-Cache Affinity Specification
+
+For enterprise CTOs, CISOs, and Infrastructure Directors evaluating InferaCap for production workloads, our complete architectural specification is published in [`SECURITY.md`](SECURITY.md):
+
+* **Zero Token Persistence:** Streaming in-memory SSE pipes with zero prompt/token disk logging. Operates 100% inside customer VPC boundaries.
+* **KV-Cache Preservation:** 3-tier session pinning (`X-Session-ID`, `X-Conversation-ID`, or `user`) and prefix hash routing to prevent vLLM / SGLang cache thrashing.
+* **Autonomous Circuit Breakers:** $<50\text{ms}$ fault detection and instant local fallback if remote regions degrade.
+* **Regulatory Governance:** Deterministic geo-fencing enforcing GDPR Chapter V (Articles 44–49) and HIPAA compatibility.
+* **Non-Disruptive Shadow Mode:** Simulate routing gains against 100% live traffic without touching production responses.
 
 ---
 

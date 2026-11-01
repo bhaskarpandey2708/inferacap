@@ -191,13 +191,15 @@ class LiveGatewayServer:
         model = payload.get("model", "")
         origin_region = headers.get("x-region", headers.get("cf-ipcountry", "US")).upper()
         ttft_budget = float(headers["x-ttft-budget-ms"]) if "x-ttft-budget-ms" in headers else None
+        session_id = headers.get("x-session-id") or headers.get("x-conversation-id") or payload.get("user")
 
-        # Execute Economic Routing Decision
+        # Execute Economic and Cache-Affinity Routing Decision
         decision = await self.router.select_route(
             origin_region=origin_region,
             model=model,
             ttft_budget_ms=ttft_budget,
             estimated_payload_bytes=len(body),
+            session_id=session_id,
         )
 
         if decision.route_type == "REJECTED":
@@ -250,6 +252,7 @@ class LiveGatewayServer:
                     f"X-InferaCap-Origin-Region: {decision.origin_region}",
                     f"X-InferaCap-Served-Region: {decision.target_region}",
                     f"X-InferaCap-Route-Type: {decision.route_type}",
+                    f"X-InferaCap-Session-Affinity: {'PINNED' if 'AFFINITY' in decision.route_type else ('INITIALIZED' if session_id else 'NONE')}",
                     f"X-InferaCap-Estimated-Savings-USD: {decision.estimated_savings_usd:.6f}",
                     f"X-InferaCap-Estimated-Egress-USD: {decision.estimated_egress_usd:.6f}",
                     f"X-InferaCap-Estimated-RTT-MS: {decision.estimated_rtt_ms:.1f}",
@@ -307,6 +310,7 @@ class LiveGatewayServer:
                 "X-InferaCap-Origin-Region": decision.origin_region,
                 "X-InferaCap-Served-Region": decision.target_region,
                 "X-InferaCap-Route-Type": decision.route_type,
+                "X-InferaCap-Session-Affinity": "PINNED" if "AFFINITY" in decision.route_type else ("INITIALIZED" if session_id else "NONE"),
                 "X-InferaCap-Estimated-Savings-USD": f"{decision.estimated_savings_usd:.6f}",
                 "X-InferaCap-Estimated-Egress-USD": f"{decision.estimated_egress_usd:.6f}",
                 "X-InferaCap-Estimated-RTT-MS": f"{decision.estimated_rtt_ms:.1f}",

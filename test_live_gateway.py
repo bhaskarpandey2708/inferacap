@@ -427,6 +427,32 @@ class LiveGatewayIntegrationTests(unittest.TestCase):
         self.assertIn("recommendations", data)
         self.assertGreaterEqual(data["total_interactions"], 4)
 
+    def test_12_session_kv_cache_affinity(self):
+        """Sequential requests with identical X-Session-ID pin to the warm worker backend."""
+        chat_req = {
+            "model": "llama-3.1-8b",
+            "messages": [{"role": "user", "content": "Turn 1: Remember key X=42"}],
+        }
+        # First turn: initializes session affinity
+        status1, hdrs1, body1 = self._post_chat(chat_req, headers={"X-Region": "US", "X-Session-ID": "sess-alpha-99"})
+        self.assertEqual(status1, 200)
+        self.assertEqual(hdrs1.get("X-InferaCap-Session-Affinity"), "INITIALIZED")
+        served_region = hdrs1.get("X-Served-Region") or hdrs1.get("X-InferaCap-Served-Region")
+
+        # Second turn: should pin to the exact same backend and region
+        chat_req2 = {
+            "model": "llama-3.1-8b",
+            "messages": [
+                {"role": "user", "content": "Turn 1: Remember key X=42"},
+                {"role": "assistant", "content": "I remember key X=42."},
+                {"role": "user", "content": "Turn 2: What was key X?"},
+            ],
+        }
+        status2, hdrs2, body2 = self._post_chat(chat_req2, headers={"X-Region": "US", "X-Session-ID": "sess-alpha-99"})
+        self.assertEqual(status2, 200)
+        self.assertEqual(hdrs2.get("X-InferaCap-Session-Affinity"), "PINNED")
+        self.assertEqual(hdrs2.get("X-InferaCap-Served-Region"), served_region)
+
 
 if __name__ == "__main__":
     unittest.main()

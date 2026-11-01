@@ -137,6 +137,10 @@ class LiveEconomicRouter:
         self.circuit_breakers: Dict[str, CircuitBreakerState] = {}
         self.analytics = AnalyticsLedger()
         
+        # Session & KV-Cache Affinity tracking (session_id -> (region, backend_url, last_active_ts))
+        self.session_affinity: Dict[str, Tuple[str, str, float]] = {}
+        self.session_ttl_seconds: float = 600.0  # 10 minute affinity window
+        
         # Metrics
         self.metrics = {
             "total_requests": 0,
@@ -181,8 +185,9 @@ class LiveEconomicRouter:
         model: str,
         ttft_budget_ms: Optional[float] = None,
         estimated_payload_bytes: int = 4096,
+        session_id: Optional[str] = None,
     ) -> RouteDecision:
-        """Select the optimal backend adhering to capacity, residency, latency, and cash economics."""
+        """Select the optimal backend adhering to capacity, residency, latency, cache-affinity, and economics."""
         budget = ttft_budget_ms or self.config.default_ttft_budget_ms
 
         async with self._lock:
@@ -200,12 +205,48 @@ class LiveEconomicRouter:
             model_supported_locally = model in local_reg.models
             available_local_backends = [b for b in local_reg.backends if self._get_circuit_breaker(b, origin_region).is_available()]
 
+            # 0. Session & KV-Cache Affinity (Sticky routing for conversational context reuse)
+            if session_id and session_id in self.session_affinity:
+                pinned_region, pinned_backend, pinned_ts = self.session_affinity[session_id]
+                # Check if session affinity is still within TTL window
+                if (time.time() - pinned_ts) <= self.session_ttl_seconds:
+                    if pinned_region in self.config.regions:
+                        p_reg = self.config.regions[pinned_region]
+                        p_active = self.active_concurrency.get(pinned_region, 0)
+                        if (
+                            model in p_reg.models
+                            and p_active < p_reg.capacity_concurrent_requests
+                            and self._get_circuit_breaker(pinned_backend, pinned_region).is_available()
+                        ):
+                            # KV-Cache affinity hit: Pin to warm worker
+                            self.active_concurrency[pinned_region] += 1
+                            self.session_affinity[session_id] = (pinned_region, pinned_backend, time.time())
+                            route_type = "SESSION_AFFINITY" if pinned_region == origin_region else "CROSS_REGION_AFFINITY"
+                            if pinned_region == origin_region:
+                                self.metrics["local_requests"] += 1
+                            else:
+                                self.metrics["cross_region_requests"] += 1
+                            self.metrics["requests_by_region"][pinned_region] += 1
+                            return RouteDecision(
+                                target_backend_url=pinned_backend,
+                                target_region=pinned_region,
+                                origin_region=origin_region,
+                                route_type=route_type,
+                                estimated_savings_usd=0.0,
+                                estimated_egress_usd=0.0,
+                                estimated_rtt_ms=0.0 if pinned_region == origin_region else 50.0,
+                                model=model,
+                            )
+
             # 1. Evaluate Local Route
             if model_supported_locally and local_active < local_reg.capacity_concurrent_requests and available_local_backends:
                 backend = random.choice(available_local_backends)
                 self.active_concurrency[origin_region] += 1
                 self.metrics["local_requests"] += 1
                 self.metrics["requests_by_region"][origin_region] += 1
+                if session_id:
+                    self.session_affinity[session_id] = (origin_region, backend, time.time())
+
                 return RouteDecision(
                     target_backend_url=backend,
                     target_region=origin_region,
@@ -277,6 +318,9 @@ class LiveEconomicRouter:
                 self.metrics["requests_by_region"][best_cand.name] += 1
                 self.metrics["total_estimated_savings_usd"] += max(0.0, best_savings)
                 self.metrics["total_estimated_egress_usd"] += best_egress
+
+                if session_id:
+                    self.session_affinity[session_id] = (best_cand.name, backend, time.time())
 
                 return RouteDecision(
                     target_backend_url=backend,
