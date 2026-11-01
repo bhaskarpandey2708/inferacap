@@ -1,0 +1,13 @@
+SW-004 local UI visual/browser QA
+UTC: 2026-10-26T06:18:16.326894+00:00
+Browser: isolated headless Google Chrome on this Mac
+Source: current Drive UI and simulator files read back through the connector
+Server: temporary 127.0.0.1 loopback port; no remote binding
+Actions: loaded bundled synthetic config and CSV; clicked Run scenario; inspected rendered result screenshot
+Observed: loaded=true; result visible=true; success status; scenario synthetic_three_region_day; 24 hours
+Rendered amounts: baseline compute 574.56 USD; candidate compute 287.28 USD; pooling compute lower bound 287.28 USD; network 0.00 USD; software 8.00 USD; net cash delta 279.28 USD
+Rendered limitations: 5; report download buttons visible
+Scope: visual and DOM interaction check only. Download clicks, real operator input, independent security and user acceptance remain unverified.
+
+sw004_ui_initial.png SHA-256: bfceebacc249b7dd2decf0259a1167e7c8605e6cb1b28bf1ea057c4d6b57afca bytes: 58500
+sw004_ui_result.png SHA-256: 76238bbca75349b78b23aa1274314864ce0f40bd7dddb44369f7452274560138 bytes: 224491

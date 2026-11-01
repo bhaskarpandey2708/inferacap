@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="__CSRF_TOKEN__">
+  <title>InferaCap — The Economically-Aware Multi-Region Inference Load Balancer</title>
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --emerald: #10b981;
+      --emerald-dark: #065f46;
+      --emerald-bg: #ecfdf5;
+      --emerald-border: #a7f3d0;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: var(--font-sans);
+      color: var(--text);
+      background: var(--bg);
+      margin: 0;
+      padding: 0 0 80px 0;
+      line-height: 1.5;
+    }
+
+    /* Top Navigation Header */
+    header.top-nav {
+      background: #0f172a;
+      color: white;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #1e293b;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand h1 {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: -0.5px;
+    }
+    .badge {
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .nav-links {
+      display: flex;
+      gap: 10px;
+    }
+    .nav-tab {
+      background: transparent;
+      color: #94a3b8;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .nav-tab:hover {
+      color: #ffffff;
+      background: #1e293b;
+    }
+    .nav-tab.active {
+      color: #ffffff;
+      background: var(--primary);
+      border-color: var(--primary-hover);
+    }
+
+    /* Main Container */
+    main.container {
+      max-width: 1180px;
+      margin: 24px auto 0;
+      padding: 0 20px;
+    }
+
+    /* Hero Value Bar */
+    .hero-banner {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: white;
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.25);
+    }
+    .hero-banner h2 {
+      margin: 0 0 6px 0;
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .hero-banner p {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.95;
+      max-width: 700px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 20px;
+    }
+    .stat-pill {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .stat-pill .val {
+      font-size: 18px;
+      font-weight: 800;
+      display: block;
+    }
+    .stat-pill .lbl {
+      font-size: 11px;
+      opacity: 0.85;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Tab Panels */
+    .tab-panel {
+      display: none;
+    }
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* Card styling */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .card h2 {
+      margin: 0 0 8px 0;
+      font-size: 19px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    p.muted {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+    /* Buttons */
+    button {
+      background: var(--primary);
+      border: 1px solid var(--primary);
+      color: white;
+      border-radius: 6px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    button:hover {
+      background: var(--primary-hover);
+      border-color: var(--primary-hover);
+    }
+    button.secondary {
+      background: white;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+    }
+    button.secondary:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+    button.cta {
+      background: #059669;
+      border-color: #059669;
+      color: white;
+      font-size: 15px;
+      padding: 12px 22px;
+    }
+    button.cta:hover {
+      background: #047857;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Dropzone */
+    .dropzone {
+      border: 2px dashed #cbd5e1;
+      border-radius: 10px;
+      background: #f8fafc;
+      padding: 36px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin: 16px 0;
+    }
+    .dropzone:hover, .dropzone.dragover {
+      border-color: var(--primary);
+      background: #f0f9ff;
+    }
+    .dropzone-icon {
+      font-size: 38px;
+      margin-bottom: 8px;
+    }
+    .dropzone-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+    .dropzone-desc {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
+    /* Financial ROI Card */
+    .roi-waterfall-card {
+      background: var(--emerald-bg);
+      border: 1px solid var(--emerald-border);
+      border-radius: 10px;
+      padding: 24px;
+      margin-top: 20px;
+    }
+    .waterfall-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-bottom: 1px solid var(--emerald-border);
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+    }
+    .waterfall-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .wf-stat {
+      background: white;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .wf-stat .val {
+      font-size: 20px;
+      font-weight: 800;
+      color: #065f46;
+    }
+    .wf-stat .lbl {
+      font-size: 12px;
+      font-weight: 600;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Fleet Cards */
+    .fleet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin: 18px 0;
+    }
+    .fleet-node {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .node-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .node-title {
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .status-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+    .status-dot.closed {
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+    }
+    .status-dot.open {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+    .node-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Textareas and inputs */
+    textarea {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 220px;
+      font: 12px/1.45 var(--font-mono);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px;
+      background: #fafbfc;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+    input[type=file] {
+      margin: 6px 0 10px 0;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 12px 0;
+    }
+    th, td {
+      border-bottom: 1px solid #f1f5f9;
+      padding: 10px 8px;
+      text-align: left;
+      font-size: 14px;
+    }
+    th {
+      color: #475569;
+      width: 55%;
+    }
+    .status {
+      min-height: 24px;
+      margin-top: 10px;
+      font-size: 13px;
+      color: #334155;
+    }
+    .status.error {
+      color: #dc2626;
+      font-weight: 600;
+    }
+
+    /* Video Frame */
+    .video-frame {
+      width: 100%;
+      height: 620px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+  </style>
+  <script src="/sw004_ui.js" defer></script>
+</head>
+<body>
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="brand">
+      <h1>⚡ InferaCap</h1>
+      <span class="badge">v__VERSION__ · Dual-Licensed</span>
+    </div>
+    <nav class="nav-links">
+      <button class="nav-tab active" data-tab="scanner">🔍 Log Audit Scanner</button>
+      <button class="nav-tab" data-tab="gateway">🌐 Live Gateway & Fleet</button>
+      <button class="nav-tab" data-tab="simulator">🧪 Offline Simulator</button>
+      <button class="nav-tab" data-tab="telemetry">📊 Product Telemetry</button>
+      <button class="nav-tab" data-tab="video">🎥 Terminal Video Demo</button>
+      <button class="nav-tab" data-tab="pilot">🤝 Enterprise Pilot</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+      <div>
+        <h2>The Economically-Aware Multi-Region Inference Load Balancer</h2>
+        <p>Pool your distributed vLLM & SGLang clusters across global time zones. Automatically eliminate on-demand overage costs by overflowing to idle sunk reservations while enforcing sub-150ms TTFT SLAs & strict GDPR guardrails.</p>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-pill">
+          <span class="val">40.0%</span>
+          <span class="lbl">Net Savings</span>
+        </div>
+        <div class="stat-pill">
+          <span class="val">&lt; 1.8ms</span>
+          <span class="lbl">Gateway Overhead</span>
+        </div>
+        <div class="stat-pill">
+          <span class="val">100%</span>
+          <span class="lbl">GDPR Safe</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 1: LOG AUDIT SCANNER (PATH 3 TROJAN HORSE MAGNET) -->
+    <div id="tab-scanner" class="tab-panel active">
+      <div class="card">
+        <h2>🔍 Free AI Cloud Spend Audit Diagnostic (Pre-Sales Free Trial)</h2>
+        <p class="muted">Ingest your historical vLLM, SGLang, Datadog, or CloudWatch access logs in your browser. InferaCap models the contractual avoidability waterfall to calculate your exact net dollar savings before touching production traffic.</p>
+
+        <div class="dropzone" id="scan-dropzone">
+          <div class="dropzone-icon">📁</div>
+          <div class="dropzone-title">Drop your customer_logs.csv or .jsonl file here</div>
+          <div class="dropzone-desc">Runs 100% locally in-memory. Zero prompts or customer data leave your machine.</div>
+          <input type="file" id="scan-file" accept=".csv,.json,.jsonl" style="display:none;">
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <button id="load-sample-logs" type="button" class="secondary">⚡ Load 8,028 Sample vLLM Production Logs</button>
+          <button id="btn-scan-logs" type="button" class="cta">🚀 Run Audit & Calculate Net Savings</button>
+        </div>
+        <div id="scan-status" class="status"></div>
+
+        <!-- Scan Results Waterfall -->
+        <div id="scan-results" class="roi-waterfall-card" hidden>
+          <div class="waterfall-header">
+            <div>
+              <h3 style="margin:0; font-size:18px; color:#065f46;">💰 Executive Financial Audit Report</h3>
+              <span id="scan-meta" style="font-size:13px; color:#047857;"></span>
+            </div>
+            <div style="text-align:right;">
+              <span style="font-size:26px; font-weight:800; color:#047857;" id="scan-pct">40.0%</span>
+              <span style="font-size:12px; display:block; color:#065f46;">Net Invoice Reduction</span>
+            </div>
+          </div>
+
+          <div class="waterfall-grid">
+            <div class="wf-stat">
+              <span class="lbl">Baseline On-Demand Spend</span>
+              <span class="val" id="scan-baseline" style="color:#dc2626;">$873.81</span>
+            </div>
+            <div class="wf-stat">
+              <span class="lbl">InferaCap Pooled Spend</span>
+              <span class="val" id="scan-candidate" style="color:#059669;">$524.29</span>
+            </div>
+            <div class="wf-stat">
+              <span class="lbl">Net Cash Avoided</span>
+              <span class="val" id="scan-savings" style="color:#059669;">+$349.52</span>
+            </div>
+            <div class="wf-stat">
+              <span class="lbl">Annualized Run-Rate Savings</span>
+              <span class="val" id="scan-annual" style="color:#0284c7;">$42,633.98 / yr</span>
+            </div>
+          </div>
+
+          <div style="background:white; border-radius:8px; padding:16px; border:1px solid #a7f3d0; margin-bottom:16px;">
+            <h4 style="margin:0 0 10px 0; font-size:14px; color:#0f172a;">Active Regional Traffic Distribution:</h4>
+            <div id="scan-region-bars" style="display:flex; flex-direction:column; gap:8px;"></div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+            <p style="margin:0; font-size:14px; color:#065f46; font-weight:600;">Ready to capture these savings live on your serving clusters?</p>
+            <button id="goto-gateway-cta" type="button" class="cta">⚡ Deploy InferaCap Live Gateway to Capture Savings</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: LIVE GATEWAY & MULTI-REGION FLEET -->
+    <div id="tab-gateway" class="tab-panel">
+      <div class="card">
+        <h2>🌐 Live InferaCap Gateway & Regional Silicon Fleet</h2>
+        <p class="muted">Live status of your federated GPU backends. InferaCap monitors real-time concurrency, latency, and circuit-breaker states, routing requests where compute is amortized.</p>
+
+        <div class="fleet-grid">
+          <!-- US Node -->
+          <div class="fleet-node">
+            <div class="node-header">
+              <span class="node-title">🇺🇸 US-East (Ohio)</span>
+              <span class="status-dot closed">CIRCUIT: CLOSED</span>
+            </div>
+            <div class="node-meta">
+              • Ingress: <code>http://127.0.0.1:8001</code><br>
+              • Billing: <strong>On-Demand ($4.00/hr)</strong><br>
+              • Max Concurrency: <strong>2 requests</strong><br>
+              • Models: <code>llama-3.1-8b</code>
+            </div>
+          </div>
+
+          <!-- EU Node -->
+          <div class="fleet-node">
+            <div class="node-header">
+              <span class="node-title">🇪🇺 EU-Central (Frankfurt)</span>
+              <span class="status-dot closed">CIRCUIT: CLOSED</span>
+            </div>
+            <div class="node-meta">
+              • Ingress: <code>http://127.0.0.1:8002</code><br>
+              • Billing: <strong>Committed Annual ($0 marginal)</strong><br>
+              • Max Concurrency: <strong>10 requests</strong><br>
+              • GDPR Residency: <strong>Compliant</strong>
+            </div>
+          </div>
+
+          <!-- ASIA Node -->
+          <div class="fleet-node">
+            <div class="node-header">
+              <span class="node-title">🌏 ASIA-East (Tokyo)</span>
+              <span class="status-dot closed">CIRCUIT: CLOSED</span>
+            </div>
+            <div class="node-meta">
+              • Ingress: <code>http://127.0.0.1:8003</code><br>
+              • Billing: <strong>On-Demand ($4.20/hr)</strong><br>
+              • Max Concurrency: <strong>2 requests</strong><br>
+              • Latency Budget: <strong>350ms</strong>
+            </div>
+          </div>
+
+          <!-- Kaggle Cloud GPU Node -->
+          <div class="fleet-node" style="border-color:#c084fc;">
+            <div class="node-header">
+              <span class="node-title">☁️ Kaggle Cloud Dual-T4</span>
+              <span class="status-dot closed" style="background:#faf5ff; color:#7e22ce; border-color:#e9d5ff;">OWNED ($0.00/hr)</span>
+            </div>
+            <div class="node-meta">
+              • Ingress: <code>http://127.0.0.1:8000</code><br>
+              • Billing: <strong>Free Cloud Quota ($0.00/hr)</strong><br>
+              • Tunnel: <strong>Encrypted Cloudflare Bridge</strong><br>
+              • Status: <strong>COMPLETE</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Live Query Tester -->
+        <div style="background:#f1f5f9; border:1px solid #cbd5e1; border-radius:8px; padding:20px; margin-top:20px;">
+          <h3 style="margin:0 0 10px 0; font-size:16px;">⚡ Live Prompt Dispatch & SLA Tester</h3>
+          <p class="muted" style="margin-bottom:14px;">Send a test request through the InferaCap Gateway to observe economic decision-making and latency SLA preservation:</p>
+
+          <div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:12px; margin-bottom:12px;">
+            <div>
+              <label for="test-prompt">Prompt Message</label>
+              <input type="text" id="test-prompt" value="Analyze multi-region GPU fleet economics" style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:13px;">
+            </div>
+            <div>
+              <label for="test-origin">Origin Region</label>
+              <select id="test-origin" style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:13px; background:white;">
+                <option value="US" selected>US (Saturated: 2/2)</option>
+                <option value="EU">EU (GDPR Sovereign)</option>
+                <option value="ASIA">ASIA (Off-Peak)</option>
+              </select>
+            </div>
+            <div>
+              <label for="test-budget">TTFT Budget</label>
+              <select id="test-budget" style="width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:13px; background:white;">
+                <option value="350">350 ms (Permit Remote)</option>
+                <option value="50">50 ms (Force Local)</option>
+              </select>
+            </div>
+          </div>
+
+          <button id="btn-send-test-prompt" type="button" class="cta">🚀 Dispatch Query via InferaCap Gateway</button>
+          
+          <div id="test-prompt-results" style="margin-top:16px; background:#1e293b; color:#f8fafc; padding:16px; border-radius:8px; font-family:var(--font-mono); font-size:13px; display:none;">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Integration Code Snippet -->
+        <div style="margin-top:24px;">
+          <h4 style="margin:0 0 8px 0;">Client Drop-in Integration (OpenAI API Compatible)</h4>
+          <pre style="background:#1e293b; color:#f8fafc; padding:16px; border-radius:8px; font-size:12px; line-height:1.5; overflow-x:auto;">
+import openai
+
+# 1-Line Drop-in Replacement: Point your standard OpenAI client to InferaCap
+client = openai.OpenAI(
+    base_url="http://127.0.0.1:8765/v1",  # InferaCap Live Intelligent Reverse Proxy
+    api_key="inferacap-key",
+)
+
+response = client.chat.completions.create(
+    model="llama-3.1-8b",
+    messages=[{"role": "user", "content": "Hello InferaCap"}],
+    extra_headers={
+        "X-Region": "US",
+        "X-TTFT-Budget-MS": "250",  # Strict latency SLA budget
+    },
+)
+print(response.choices[0].message.content)</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: OFFLINE SIMULATOR (ORIGINAL RESEARCH & CONTRACT SPEC) -->
+    <div id="tab-simulator" class="tab-panel">
+      <div class="card">
+        <h2>Pre-Sales Capacity & Savings Diagnostic (Free Trial Mode)</h2>
+        <p class="muted">Test your multi-region inference traffic logs to see exact avoidable GPU spend and projected net monthly cash savings before routing live production traffic.</p>
+        <button id="load-sample" type="button" class="secondary">Load synthetic example</button>
+        <div class="grid-2">
+          <div>
+            <label for="scenario">Scenario JSON</label>
+            <input id="scenario-file" type="file" accept=".json,application/json">
+            <textarea id="scenario" spellcheck="false" aria-label="Scenario JSON"></textarea>
+            <button id="save-scenario" type="button" class="secondary">Save scenario JSON</button>
+          </div>
+          <div>
+            <label for="observations">Hourly observations CSV (optional when JSON contains observations)</label>
+            <input id="observations-file" type="file" accept=".csv,text/csv">
+            <textarea id="observations" spellcheck="false" aria-label="Hourly observations CSV"></textarea>
+            <button id="save-observations" type="button" class="secondary">Save observations CSV</button>
+          </div>
+        </div>
+        <button id="run" type="button">Run scenario</button>
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+
+        <div id="results" hidden style="margin-top:20px;">
+          <h2>Result</h2>
+          <p id="run-meta" class="muted"></p>
+          <table><tbody id="metrics"></tbody></table>
+          <h3>Limitations</h3><ul id="limitations"></ul>
+          <button id="download-json" type="button">Download JSON report</button>
+          <button id="download-csv" type="button" class="secondary">Download CSV report</button>
+        </div>
+      </div>
+
+      <!-- Multi-Scenario Range Comparison -->
+      <div class="card">
+        <h2>Compare scenario ranges</h2>
+        <p class="muted">Select 2–10 complete scenario JSON files for the same currency, UTC period and region/model keys. The displayed endpoints cover only these cases; they are not a statistical confidence interval or verified customer saving.</p>
+        <label for="compare-files">Scenario JSON files</label>
+        <input id="compare-files" type="file" accept=".json,application/json" multiple>
+        <button id="compare" type="button">Compare scenarios</button>
+        <div id="compare-status" class="status" role="status" aria-live="polite"></div>
+        <div id="compare-results" hidden>
+          <p id="compare-range"></p>
+          <table><thead><tr><th>Case</th><th>Net current cash delta</th></tr></thead><tbody id="compare-cases"></tbody></table>
+          <p id="compare-limit" class="muted"></p>
+          <button id="download-comparison" type="button">Download comparison JSON</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: PRODUCT TELEMETRY & DROP/MERGE ENGINE -->
+    <div id="tab-telemetry" class="tab-panel">
+      <div class="card">
+        <h2>📊 Product Telemetry & Feature Analytics (Drop / Merge Engine)</h2>
+        <p class="muted">Real-time interaction breakdown across InferaCap features to optimize customer retention and drive commercial roadmap decisions.</p>
+        <button id="refresh-analytics" type="button" class="secondary">🔄 Refresh Live Analytics</button>
+        
+        <div style="margin-top: 18px;">
+          <div id="chart-bars" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;"></div>
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+            <h4 style="margin: 0 0 8px; color: #0f172a;">💡 Autonomous Drop / Merge Recommendations:</h4>
+            <ul id="analytics-recommendations" style="margin: 0; padding-left: 20px; font-size: 13px; color: #334155;">
+              <li>Loading telemetry...</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: INTERACTIVE TERMINAL VIDEO DEMO -->
+    <div id="tab-video" class="tab-panel">
+      <div class="card">
+        <h2>🎥 Interactive Terminal Video Showcase</h2>
+        <p class="muted">Experience the complete customer journey from log ingestion to live multi-region routing in an interactive animated terminal player.</p>
+        <iframe src="/demo-video" class="video-frame"></iframe>
+      </div>
+    </div>
+
+    <!-- TAB 6: ENTERPRISE COMMERCIAL PILOT (20% GAIN-SHARE) -->
+    <div id="tab-pilot" class="tab-panel">
+      <div class="card">
+        <h2>🤝 InferaCap Enterprise Pilot & Commercial Terms</h2>
+        <p class="muted">Deploy InferaCap into your private VPC with a 100% money-back guarantee. We align our revenue directly with your verified cloud GPU savings.</p>
+
+        <div class="waterfall-grid" style="margin:20px 0;">
+          <div class="wf-stat" style="background:#f8fafc; border-color:#cbd5e1;">
+            <span class="lbl">Community Tier</span>
+            <span class="val" style="color:#0f172a;">$0 / month</span>
+            <p style="font-size:12px; color:#64748b; margin:6px 0 0;">Free Log Scanner CLI, Capacity Simulator, & Client SDK (Apache 2.0).</p>
+          </div>
+          <div class="wf-stat" style="background:#f8fafc; border-color:#cbd5e1;">
+            <span class="lbl">Team Pro Subscription</span>
+            <span class="val" style="color:#0284c7;">$499 / month</span>
+            <p style="font-size:12px; color:#64748b; margin:6px 0 0;">Up to 5 regions, managed gateway control plane, and live circuit breakers.</p>
+          </div>
+          <div class="wf-stat" style="background:#ecfdf5; border-color:#86efac;">
+            <span class="lbl">Enterprise 20% Gain-Share</span>
+            <span class="val" style="color:#059669;">20% of Savings</span>
+            <p style="font-size:12px; color:#065f46; margin:6px 0 0;">Risk-free guarantee. If we don't save you money on your cloud bill, you pay $0.</p>
+          </div>
+        </div>
+
+        <div style="background:#f1f5f9; border-radius:8px; padding:20px; border:1px solid #cbd5e1;">
+          <h3 style="margin:0 0 10px 0;">Request Enterprise Pilot Access</h3>
+          <p class="muted" style="margin-bottom:16px;">Contact the founder directly to receive private Docker containers, custom Kubernetes manifests, or schedule a 10-minute historical log audit.</p>
+          
+          <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+            <a href="mailto:bhaskarauthor@gmail.com?subject=InferaCap%20Enterprise%20Pilot%20Inquiry" style="text-decoration:none;">
+              <button type="button" class="cta">✉️ Email Bhaskar Pandey (bhaskarauthor@gmail.com)</button>
+            </a>
+            <span style="font-size:13px; color:#64748b;">Turnaround time: &lt; 4 hours</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

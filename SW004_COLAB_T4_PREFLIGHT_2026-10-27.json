@@ -1,0 +1,12 @@
+{
+  "cuda_available": true,
+  "gpu": "Tesla T4",
+  "packages": {
+    "accelerate": "1.15.0",
+    "huggingface-hub": "1.33.0",
+    "torch": "2.11.0+cu130",
+    "transformers": "5.20.2"
+  },
+  "python": "3.13.16",
+  "t4_verified": true
+}

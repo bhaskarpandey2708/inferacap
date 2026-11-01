@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  inferacap-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: inferacap-gateway
+    restart: unless-stopped
+    ports:
+      - "8765:8765"  # Live OpenAI-Compatible Ingress Proxy
+      - "8764:8764"  # Pre-Sales Web Dashboard & Free Trial UI
+    environment:
+      - PYTHONUNBUFFERED=1
+      - INFERACAP_PORT=8765
+      - INFERACAP_UI_PORT=8764
+    volumes:
+      - ./gateway/sample_gateway_config.json:/app/gateway/sample_gateway_config.json:ro
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8765/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1024M
+        reservations:
+          cpus: '0.5'
+          memory: 256M

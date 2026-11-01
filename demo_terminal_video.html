@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InferaCap — Interactive Terminal Video Showcase</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --term-bg: #0d1117;
+      --term-border: #30363d;
+      --text: #e6edf3;
+      --cyan: #38bdf8;
+      --green: #4ade80;
+      --yellow: #facc15;
+      --red: #f87171;
+      --dim: #8b949e;
+      --purple: #c084fc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 15px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+      max-width: 860px;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--cyan);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    p.subtitle {
+      font-size: 15px;
+      color: var(--dim);
+      line-height: 1.5;
+    }
+    .terminal-window {
+      width: 100%;
+      max-width: 960px;
+      background: var(--term-bg);
+      border: 1px solid var(--term-border);
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .terminal-titlebar {
+      background: #161b22;
+      border-bottom: 1px solid var(--term-border);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .traffic-lights {
+      display: flex;
+      gap: 8px;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .dot.red { background: #ff5f56; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #27c93f; }
+    .term-title {
+      font-size: 12px;
+      color: var(--dim);
+      font-family: ui-monospace, monospace;
+      font-weight: 500;
+    }
+    .term-actions {
+      font-size: 12px;
+      color: var(--cyan);
+      font-weight: 600;
+    }
+    .terminal-body {
+      padding: 20px 24px;
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      height: 520px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #0d1117;
+      color: #e6edf3;
+    }
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 16px;
+      background: var(--cyan);
+      vertical-align: middle;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+    /* Video Control Bar */
+    .controls-panel {
+      background: #161b22;
+      border-top: 1px solid var(--term-border);
+      padding: 12px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .progress-bar-container {
+      width: 100%;
+      height: 6px;
+      background: #21262d;
+      border-radius: 3px;
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #38bdf8, #4ade80);
+      border-radius: 3px;
+      transition: width 0.1s linear;
+    }
+    .button-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .btn-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    button.ctrl-btn {
+      background: #21262d;
+      color: #fff;
+      border: 1px solid var(--term-border);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    button.ctrl-btn:hover {
+      background: #30363d;
+      border-color: #8b949e;
+    }
+    button.ctrl-btn.primary {
+      background: #238636;
+      border-color: #2ea043;
+    }
+    button.ctrl-btn.primary:hover {
+      background: #2ea043;
+    }
+    select.speed-select {
+      background: #21262d;
+      color: #fff;
+      border: 1px solid var(--term-border);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .chapter-pills {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-top: 4px;
+      scrollbar-width: none;
+    }
+    .chapter-pill {
+      background: #21262d;
+      color: var(--dim);
+      border: 1px solid var(--term-border);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+    .chapter-pill:hover, .chapter-pill.active {
+      color: #fff;
+      border-color: var(--cyan);
+      background: rgba(56, 189, 248, 0.12);
+    }
+    .timestamp {
+      font-family: ui-monospace, monospace;
+      font-size: 12px;
+      color: var(--dim);
+    }
+
+    /* Color Helpers */
+    .c-cyan { color: var(--cyan); }
+    .c-green { color: var(--green); }
+    .c-yellow { color: var(--yellow); }
+    .c-red { color: var(--red); }
+    .c-purple { color: var(--purple); }
+    .c-dim { color: var(--dim); }
+    .c-bold { font-weight: 700; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="badge">INFERACAP INTERACTIVE SHOWCASE</div>
+    <h1>⚡ The Economically-Aware Multi-Region Inference Load Balancer</h1>
+    <p class="subtitle">Experience how InferaCap audits historical GPU waste in 30 seconds, federates global silicon clusters, and dynamically routes live requests to idle reservations while strictly preserving latency SLAs.</p>
+  </div>
+
+  <div class="terminal-window">
+    <div class="terminal-titlebar">
+      <div class="traffic-lights">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+      </div>
+      <div class="term-title">bhaskar@infera-node: ~/inferacap-engine (zsh)</div>
+      <div class="term-actions">v1.0.0 · Apache 2.0 / Commercial</div>
+    </div>
+
+    <div id="terminal" class="terminal-body"><span id="content"></span><span class="cursor"></span></div>
+
+    <div class="controls-panel">
+      <div class="progress-bar-container" id="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+
+      <div class="button-row">
+        <div class="btn-group">
+          <button id="play-btn" class="ctrl-btn primary">⏸ Pause Demo</button>
+          <button id="restart-btn" class="ctrl-btn">🔄 Restart</button>
+          <span class="timestamp" id="time-display">00:00 / 01:15</span>
+        </div>
+
+        <div class="btn-group">
+          <label style="font-size: 12px; color: var(--dim);">Playback Speed:</label>
+          <select id="speed-select" class="speed-select">
+            <option value="1">1.0x (Normal)</option>
+            <option value="1.5" selected>1.5x (Fast)</option>
+            <option value="2.5">2.5x (Blazing)</option>
+          </select>
+          <a href="/" target="_blank" style="text-decoration:none;">
+            <button class="ctrl-btn" style="color: var(--cyan); border-color: rgba(56, 189, 248, 0.4);">🚀 Open Live Web UI</button>
+          </a>
+        </div>
+      </div>
+
+      <div class="chapter-pills">
+        <span class="chapter-pill active" onclick="jumpTo(0)">1. CLI Ingestion</span>
+        <span class="chapter-pill" onclick="jumpTo(1)">2. Telemetry Audit</span>
+        <span class="chapter-pill" onclick="jumpTo(2)">3. $42.6k Waterfall</span>
+        <span class="chapter-pill" onclick="jumpTo(3)">4. Live Gateway Boot</span>
+        <span class="chapter-pill" onclick="jumpTo(4)">5. Dynamic WAN Overflow</span>
+        <span class="chapter-pill" onclick="jumpTo(5)">6. GDPR Sovereignty</span>
+        <span class="chapter-pill" onclick="jumpTo(6)">7. Circuit Breaker</span>
+        <span class="chapter-pill" onclick="jumpTo(7)">8. Commercial ROI</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const contentEl = document.getElementById("content");
+    const termEl = document.getElementById("terminal");
+    const playBtn = document.getElementById("play-btn");
+    const restartBtn = document.getElementById("restart-btn");
+    const progressFill = document.getElementById("progress-fill");
+    const progressBar = document.getElementById("progress-bar");
+    const speedSelect = document.getElementById("speed-select");
+    const timeDisplay = document.getElementById("time-display");
+    const pills = document.querySelectorAll(".chapter-pill");
+
+    let isPlaying = true;
+    let speed = 1.5;
+    let currentStep = 0;
+    let timeoutId = null;
+
+    const SCRIPT = [
+      {
+        chapter: 0,
+        text: `<span class="c-dim">$</span> <span class="c-cyan">inferacap-scan</span> <span class="c-yellow">sample_customer_vllm_logs.csv</span> --discount 0.40\n`
+      },
+      {
+        chapter: 1,
+        text: `\n<span class="c-dim">[09:30:01]</span> <span class="c-cyan">InferaCap Telemetry Ingestion Engine:</span>\n` +
+              ` • File: sample_customer_vllm_logs.csv (71.8 hours observed)\n` +
+              ` • Parsing 8,028 requests across 3 regional clusters...\n` +
+              ` • Extracting prompt & completion token distributions...\n` +
+              `   ✔ Processed <span class="c-bold">8,028 requests</span> (<span class="c-bold">1,504,962 tokens</span>)\n` +
+              `   ✔ Regions: ASIA (Tokyo), EU (Frankfurt), US (Ohio)\n` +
+              `   ✔ Models: llama-3.1-8b, qwen2.5-coder\n`
+      },
+      {
+        chapter: 2,
+        text: `\n==============================================================================\n` +
+              `⚡ <span class="c-bold">INFERACAP ENTERPRISE LOG SCANNER: CAPACITY & ROI AUDIT REPORT</span>\n` +
+              `==============================================================================\n` +
+              `💰 <span class="c-bold">FINANCIAL RECONCILIATION WATERFALL:</span>\n` +
+              `   • Baseline Siloed Spend (On-Demand Peak Provisioning):  <span class="c-red">$873.81 USD</span>\n` +
+              `   • InferaCap Multi-Region Pooled Compute Spend:          <span class="c-green">$524.29 USD</span>\n` +
+              `   • Incremental Cross-Region Network Egress (WAN):        <span class="c-dim">$0.0000 USD</span>\n` +
+              `   ------------------------------------------------------------\n` +
+              `   ⭐ <span class="c-bold">NET AVOIDED CASH SPEND (Immediate ROI):              <span class="c-green">+$349.52 USD</span></span>\n` +
+              `   📈 <span class="c-bold">INVOICE REDUCTION RATE:                              <span class="c-green">40.0%</span></span>\n` +
+              `   🚀 <span class="c-bold">ANNUALIZED RUN-RATE NET SAVINGS:                    <span class="c-green">$42,633.98 USD / year</span></span>\n` +
+              `==============================================================================\n`
+      },
+      {
+        chapter: 3,
+        text: `\n<span class="c-dim">$</span> <span class="c-cyan">inferacap-gateway</span> <span class="c-yellow">gateway/sample_gateway_config.json</span> --port 8765\n` +
+              `<span class="c-dim">[09:30:04]</span> <span class="c-bold c-green">⚡ InferaCap Live Intelligent Gateway running on http://127.0.0.1:8765</span>\n` +
+              ` • US-East Cluster:    http://127.0.0.1:8001  (On-Demand @ $4.00/hr, Cap: 2)\n` +
+              ` • EU-Central Cluster: http://127.0.0.1:8002  (Committed Reservation, Cap: 10)\n` +
+              ` • Kaggle GPU Node:    http://127.0.0.1:8003  (Owned Dual-T4 @ $0.00/hr, Cap: 8)\n` +
+              ` • SSE Streaming:      Active (OpenAI Ingress /v1/chat/completions)\n`
+      },
+      {
+        chapter: 4,
+        text: `\n<span class="c-cyan">▶ INCOMING CLIENT TRAFFIC VIA OFFICIAL SDK:</span>\n` +
+              `  <span class="c-dim">>>> from inferacap import InferaCap; client = InferaCap()</span>\n\n` +
+              `[Request #101] Origin: US | Prompt: 'Summarize Q3 earnings report'\n` +
+              `  • Local US Capacity: 1/2 in use\n` +
+              `  ✔ <span class="c-green">ROUTE LOCAL</span> --> Served by [US] | TTFT: <span class="c-bold">14.2ms</span> | WAN Egress: $0.00\n\n` +
+              `[Request #102] Origin: US | Prompt: 'Run multi-agent code analysis' (US Saturated: 2/2)\n` +
+              `  • Contract Engine: Off-peak EU reservations are 80% idle overnight ($0.00 marginal)\n` +
+              `  • SLA Verification: Measured transatlantic RTT is 75ms (within client 300ms TTFT budget)\n` +
+              `  ✔ <span class="c-yellow">CROSS_REGION_ECONOMIC</span> --> Routed: US -> [EU]\n` +
+              `  ✔ <span class="c-green">Avoided On-Demand Surcharge: +$0.001111 USD</span> | TTFT: <span class="c-bold">78.4ms</span>\n`
+      },
+      {
+        chapter: 5,
+        text: `\n[Request #103] Origin: EU | Header: 'X-GDPR-Sovereignty: True' (EU Peak Surge)\n` +
+              `  • Cross-border Policy Check: Directional rule EU -> US has residency_permission=False\n` +
+              `  🛡️ <span class="c-yellow">GDPR GUARDRAIL ACTIVATED:</span> Prohibited from routing to non-compliant US silicon.\n` +
+              `  ✔ <span class="c-green">POLICY ROUTED</span> --> Overflowed to compliant Kaggle Cloud Dual-T4 Node ($0.00/hr)\n` +
+              `  ✔ Data never left sovereign GDPR jurisdiction. 100% compliant.\n`
+      },
+      {
+        chapter: 6,
+        text: `\n<span class="c-red c-bold">🚨 SIMULATING BACKEND FAULT IN US-EAST CLUSTER:</span>\n` +
+              `  • 09:30:08 [Connection refused on http://127.0.0.1:8001]\n` +
+              `  • 09:30:08 Consecutive failure count: 3 / 3\n` +
+              `  ⚡ <span class="c-red c-bold">CIRCUIT BREAKER TRIPPED --> STATE: OPEN</span> (Evicted faulty endpoint)\n` +
+              `  ✔ Auto-Failover: Instant reroute to EU Reservation cluster in 1.1ms\n` +
+              `  ✔ Zero dropped tokens; zero client 500 errors.\n` +
+              `  • 09:30:12 Active health probes recover: <span class="c-green">STATE: CLOSED</span> (Restored traffic)\n`
+      },
+      {
+        chapter: 7,
+        text: `\n==============================================================================\n` +
+              `🏁 <span class="c-bold">DEMO SUMMARY & COMMERCIAL ARCHITECTURE (Path 3)</span>\n` +
+              `==============================================================================\n` +
+              `1. <span class="c-bold">The Free Audit Tool (Apache 2.0):</span>\n` +
+              `   • Run 'inferacap-scan my_logs.csv' in your terminal in 30 seconds.\n` +
+              `   • Zero security friction; mathematically proves $40k+/yr in avoidable spend.\n\n` +
+              `2. <span class="c-bold">The Commercial Production Gateway (Commercial License):</span>\n` +
+              `   • Drop-in OpenAI reverse proxy with active circuit breakers & GDPR guardrails.\n` +
+              `   • 20% Verified Gain-Share Model: You only pay when your cloud bill drops.\n` +
+              `   • Or Team Pro subscription at $499/month.\n\n` +
+              `👉 Contact <span class="c-bold">Bhaskar Pandey</span> &lt;bhaskarauthor@gmail.com&gt; for Enterprise Pilot Access.\n` +
+              `==============================================================================\n`
+      }
+    ];
+
+    function updatePills(idx) {
+      pills.forEach((p, i) => {
+        p.classList.toggle("active", i === idx);
+      });
+    }
+
+    function renderStep() {
+      if (currentStep >= SCRIPT.length) {
+        isPlaying = false;
+        playBtn.textContent = "▶ Replay Demo";
+        playBtn.classList.remove("primary");
+        return;
+      }
+
+      const item = SCRIPT[currentStep];
+      updatePills(item.chapter);
+
+      contentEl.innerHTML += item.text;
+      termEl.scrollTop = termEl.scrollHeight;
+
+      const progress = ((currentStep + 1) / SCRIPT.length) * 100;
+      progressFill.style.width = progress + "%";
+      timeDisplay.textContent = `00:${String((currentStep + 1) * 9).padStart(2, '0')} / 01:15`;
+
+      currentStep++;
+      if (isPlaying) {
+        const delay = (item.chapter === 0 ? 1200 : (item.chapter === 2 ? 3000 : 2200)) / speed;
+        timeoutId = setTimeout(renderStep, delay);
+      }
+    }
+
+    function jumpTo(chapterIndex) {
+      clearTimeout(timeoutId);
+      contentEl.innerHTML = "";
+      for (let i = 0; i <= chapterIndex; i++) {
+        contentEl.innerHTML += SCRIPT[i].text;
+      }
+      currentStep = chapterIndex + 1;
+      updatePills(chapterIndex);
+      const progress = (currentStep / SCRIPT.length) * 100;
+      progressFill.style.width = progress + "%";
+      timeDisplay.textContent = `00:${String(currentStep * 9).padStart(2, '0')} / 01:15`;
+      termEl.scrollTop = termEl.scrollHeight;
+      if (isPlaying) {
+        timeoutId = setTimeout(renderStep, 1500 / speed);
+      }
+    }
+
+    playBtn.addEventListener("click", () => {
+      if (currentStep >= SCRIPT.length) {
+        currentStep = 0;
+        contentEl.innerHTML = "";
+        isPlaying = true;
+        playBtn.textContent = "⏸ Pause Demo";
+        playBtn.classList.add("primary");
+        renderStep();
+        return;
+      }
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        playBtn.textContent = "⏸ Pause Demo";
+        playBtn.classList.add("primary");
+        renderStep();
+      } else {
+        playBtn.textContent = "▶ Resume Demo";
+        playBtn.classList.remove("primary");
+        clearTimeout(timeoutId);
+      }
+    });
+
+    restartBtn.addEventListener("click", () => {
+      clearTimeout(timeoutId);
+      contentEl.innerHTML = "";
+      currentStep = 0;
+      isPlaying = true;
+      playBtn.textContent = "⏸ Pause Demo";
+      playBtn.classList.add("primary");
+      renderStep();
+    });
+
+    speedSelect.addEventListener("change", (e) => {
+      speed = parseFloat(e.target.value);
+    });
+
+    progressBar.addEventListener("click", (e) => {
+      const rect = progressBar.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const pct = clickX / rect.width;
+      const targetStep = Math.min(Math.floor(pct * SCRIPT.length), SCRIPT.length - 1);
+      jumpTo(targetStep);
+    });
+
+    // Start playback automatically
+    renderStep();
+  </script>
+</body>
+</html>

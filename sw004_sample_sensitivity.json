@@ -1,0 +1,60 @@
+{
+  "analysis_type": "DETERMINISTIC_SCENARIO_ENVELOPE",
+  "case_count": 2,
+  "cases": [
+    {
+      "baseline_compute_usd": "574.56",
+      "candidate_compute_usd": "287.28",
+      "case": "synthetic_base",
+      "migration_usd": "0.00",
+      "net_current_cash_delta_usd": "279.28",
+      "network_usd": "0.00",
+      "operations_usd": "0.00",
+      "rounding_adjustment_usd": "0.00",
+      "scenario_id": "synthetic_three_region_day",
+      "scenario_sha256": "92a83a8c730b9f643d50b85d21e3ecbbedd2a1b1b52bd35d80c0124567bd9964",
+      "software_usd": "8.00",
+      "source_kinds": [
+        "synthetic"
+      ],
+      "status": "FEASIBLE_HEURISTIC"
+    },
+    {
+      "baseline_compute_usd": "574.56",
+      "candidate_compute_usd": "287.28",
+      "case": "synthetic_software_1000_usd",
+      "migration_usd": "0.00",
+      "net_current_cash_delta_usd": "-712.72",
+      "network_usd": "0.00",
+      "operations_usd": "0.00",
+      "rounding_adjustment_usd": "0.00",
+      "scenario_id": "synthetic_three_region_day",
+      "scenario_sha256": "fada9e0f0cdd314cef0410ab0b322f5db62253efbed7680aefff6688d84a8e83",
+      "software_usd": "1000.00",
+      "source_kinds": [
+        "synthetic"
+      ],
+      "status": "FEASIBLE_HEURISTIC"
+    }
+  ],
+  "currency": "USD",
+  "engine_version": "0.7.3",
+  "includes_nonpositive_case": true,
+  "input_schema_version": 1,
+  "limitations": [
+    "The endpoints are only the minimum and maximum among the supplied scenarios; they are not probability or statistical confidence bounds.",
+    "Each case uses a feasible heuristic, so its candidate cost is not proven globally minimal.",
+    "Synthetic or operator-supplied assumptions do not verify customer contracts, route permission, latency or invoice avoidability."
+  ],
+  "maximum_case": "synthetic_base",
+  "maximum_net_current_cash_delta_usd": "279.28",
+  "minimum_case": "synthetic_software_1000_usd",
+  "minimum_net_current_cash_delta_usd": "-712.72",
+  "period_end_utc": "2026-10-27T00:00:00Z",
+  "period_start_utc": "2026-10-26T00:00:00Z",
+  "region_model_keys": [
+    "ASIA/m1",
+    "EU/m1",
+    "US/m1"
+  ]
+}

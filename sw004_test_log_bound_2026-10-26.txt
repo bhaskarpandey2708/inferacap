@@ -1,0 +1,38 @@
+SW-004 perfect-pooling lower-bound QA
+UTC: 2026-10-26T06:07:10.120009+00:00
+Test interpreter: Python 3.12.15
+Command: /opt/homebrew/bin/python3.12 -m unittest -v test_sw004_simulator
+Exit code: 0
+JSON/CSV cost, GPU-hour and assignment parity: True
+Seeded invariant scenarios: 50
+Enumerated small integer pooling comparisons: 60
+Sample compute lower bound: 287.28
+Sample constrained candidate compute: 287.28
+
+sw004_simulator.py SHA-256: 5983ec9535fd0dc61e7dde38c082816cc5f5a7b9611b6fb144fcb6df1bc3da82 bytes: 26132
+test_sw004_simulator.py SHA-256: 405abbb58c78939ddb4702b0749025e43a680d680852c10b0a4abfd6038b8f83 bytes: 16144
+SW004_README.md SHA-256: 1a421792a7054f7cff8c1a675c8e02b869a39cf67685a6b2b226d07eea3fb6c5 bytes: 2852
+sw004_sample_report.json SHA-256: 46109809baa1e885c10f131858dfa7ee74ff21ecc0dff6463c4e19592597f481 bytes: 29012
+sw004_sample_report.csv SHA-256: a03ebf9123d00440f3eb666b6fecee9a465e024d9ce8ee07c6c3f4169873ea42 bytes: 75363
+
+
+test_commitment_has_no_current_compute_cash_saving (test_sw004_simulator.SimulatorTests.test_commitment_has_no_current_compute_cash_saving) ... ok
+test_csv_formula_text_is_escaped (test_sw004_simulator.SimulatorTests.test_csv_formula_text_is_escaped) ... ok
+test_csv_input_and_report_export (test_sw004_simulator.SimulatorTests.test_csv_input_and_report_export) ... ok
+test_every_origin_demand_is_conserved_and_host_capacity_respected (test_sw004_simulator.SimulatorTests.test_every_origin_demand_is_conserved_and_host_capacity_respected) ... ok
+test_explicit_allowlist_and_capacity (test_sw004_simulator.SimulatorTests.test_explicit_allowlist_and_capacity) ... ok
+test_infeasible_capacity_never_returns_savings (test_sw004_simulator.SimulatorTests.test_infeasible_capacity_never_returns_savings) ... ok
+test_malformed_and_missing_records_fail (test_sw004_simulator.SimulatorTests.test_malformed_and_missing_records_fail) ... ok
+test_negative_net_preserved (test_sw004_simulator.SimulatorTests.test_negative_net_preserved) ... ok
+test_perfect_pooling_bound_retains_fixed_commitment_and_ignores_routes (test_sw004_simulator.SimulatorTests.test_perfect_pooling_bound_retains_fixed_commitment_and_ignores_routes) ... ok
+test_pooling_bound_below_enumerated_integer_optimum (test_sw004_simulator.SimulatorTests.test_pooling_bound_below_enumerated_integer_optimum) ... ok
+test_reverse_edge_does_not_authorize_transfer (test_sw004_simulator.SimulatorTests.test_reverse_edge_does_not_authorize_transfer) ... ok
+test_seeded_financial_and_capacity_invariants (test_sw004_simulator.SimulatorTests.test_seeded_financial_and_capacity_invariants) ... ok
+test_strict_latency_prevents_remote_route (test_sw004_simulator.SimulatorTests.test_strict_latency_prevents_remote_route) ... ok
+test_three_region_thirty_day_replay (test_sw004_simulator.SimulatorTests.test_three_region_thirty_day_replay) ... ok
+test_whole_gpu_reference_and_explicit_zero (test_sw004_simulator.SimulatorTests.test_whole_gpu_reference_and_explicit_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.083s
+
+OK

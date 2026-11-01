@@ -1,0 +1,23 @@
+SW-004 final prototype QA after Drive readback
+UTC: 2026-10-26T04:53:06.254977+00:00
+Python: 3.12.15
+Source SHA-256: b4c6f74f1b90c269efd7c9cdd21b871cc93d0b29a3e5ddbd52b6da92092751c2
+Tests SHA-256: 5bc8464f961d582924ae421346a371ec311ba48cc42c6c17f412d8e99d920743
+Command: PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=. /opt/homebrew/bin/python3.12 -m unittest -v test_sw004_simulator
+Exit code: 0
+
+test_commitment_has_no_current_compute_cash_saving (test_sw004_simulator.SimulatorTests.test_commitment_has_no_current_compute_cash_saving) ... ok
+test_every_origin_demand_is_conserved_and_host_capacity_respected (test_sw004_simulator.SimulatorTests.test_every_origin_demand_is_conserved_and_host_capacity_respected) ... ok
+test_explicit_allowlist_and_capacity (test_sw004_simulator.SimulatorTests.test_explicit_allowlist_and_capacity) ... ok
+test_infeasible_capacity_never_returns_savings (test_sw004_simulator.SimulatorTests.test_infeasible_capacity_never_returns_savings) ... ok
+test_malformed_and_missing_records_fail (test_sw004_simulator.SimulatorTests.test_malformed_and_missing_records_fail) ... ok
+test_negative_net_preserved (test_sw004_simulator.SimulatorTests.test_negative_net_preserved) ... ok
+test_reverse_edge_does_not_authorize_transfer (test_sw004_simulator.SimulatorTests.test_reverse_edge_does_not_authorize_transfer) ... ok
+test_strict_latency_prevents_remote_route (test_sw004_simulator.SimulatorTests.test_strict_latency_prevents_remote_route) ... ok
+test_three_region_thirty_day_replay (test_sw004_simulator.SimulatorTests.test_three_region_thirty_day_replay) ... ok
+test_whole_gpu_reference_and_explicit_zero (test_sw004_simulator.SimulatorTests.test_whole_gpu_reference_and_explicit_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.024s
+
+OK

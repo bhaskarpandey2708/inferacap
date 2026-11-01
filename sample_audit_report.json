@@ -1,0 +1,29 @@
+{
+  "report_id": "inferacap-scan-1793476860",
+  "timestamp_utc": "2026-10-31T20:01:00.114736Z",
+  "scanner_version": "1.0.0",
+  "analysis": {
+    "time_span_hours": 71.82,
+    "total_requests": 8028,
+    "total_tokens": 1504962,
+    "unique_regions": [
+      "ASIA",
+      "EU",
+      "US"
+    ],
+    "unique_models": [
+      "llama-3.1-8b",
+      "qwen2.5-coder"
+    ],
+    "transfers_simulated": 0,
+    "financials": {
+      "currency": "USD",
+      "baseline_compute_usd": 873.81,
+      "inferacap_compute_usd": 524.29,
+      "incremental_egress_usd": 0.0,
+      "net_avoided_spend_usd": 349.52,
+      "savings_percentage": 40.0,
+      "annualized_projected_savings_usd": 42633.98
+    }
+  }
+}

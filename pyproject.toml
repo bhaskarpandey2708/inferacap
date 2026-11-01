@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "inferacap"
+version = "1.0.0"
+description = "The Economically-Aware Multi-Region Inference Load Balancer"
+readme = "README.md"
+authors = [
+    { name = "Bhaskar Pandey", email = "bhaskarauthor@gmail.com" }
+]
+license = { text = "Apache-2.0" }
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Internet :: Proxy Servers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+keywords = [
+    "llm", "inference", "load-balancer", "vllm", "sglang",
+    "gpu-optimization", "multi-region", "openai-proxy", "finops"
+]
+requires-python = ">=3.9"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "unittest-parallel",
+]
+
+[project.scripts]
+inferacap-gateway = "run_gateway:main"
+inferacap-scan = "scan_logs:main"
+inferacap-demo = "demo_inferacap:run_demo"
+inferacap-showcase = "demo_terminal_walkthrough:main"
+inferacap-kaggle = "gateway.inferacap_kaggle_worker:main"
+
+[project.urls]
+Homepage = "https://github.com/bhaskarpandey/inferacap"
+Documentation = "https://github.com/bhaskarpandey/inferacap#readme"
+Issues = "https://github.com/bhaskarpandey/inferacap/issues"

@@ -1,0 +1,188 @@
+{
+  "evidence_class": "simulated_offline",
+  "python": "3.12.15",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "machine": "arm64",
+  "logical_cpu_count": 6,
+  "repeats_per_cell": 3,
+  "cells": [
+    {
+      "hours": 24,
+      "region_model_records": 2,
+      "observations": 48,
+      "ordered_routes": 2,
+      "transfers": 24,
+      "scenario_sha256": "13599d79645a67f05cc25359da56de5b70b654eaf898af86409076e274ae7c2d",
+      "report_sha256": "75924c8383c1581d144f3cdd1de0f714861f76e5a6f193a48e32ec1707f3e0fc",
+      "report_bytes": 18655,
+      "runs_seconds": [
+        0.0013,
+        0.0012,
+        0.0012
+      ],
+      "median_seconds": 0.0012,
+      "p95_seconds_exploratory": 0.0013,
+      "observations_per_second_at_median": 40126.8,
+      "invariants_and_replay": "PASS"
+    },
+    {
+      "hours": 24,
+      "region_model_records": 4,
+      "observations": 96,
+      "ordered_routes": 12,
+      "transfers": 82,
+      "scenario_sha256": "7227d0b9b20953d764775758b773bd9b06e658c68f80a8869fb38e4d2bb50d68",
+      "report_sha256": "be76cc2ccdac4aaabef2cc829aa00bf7d27b1df723d31beb6890dc83579ca56c",
+      "report_bytes": 37735,
+      "runs_seconds": [
+        0.0062,
+        0.006,
+        0.006
+      ],
+      "median_seconds": 0.006,
+      "p95_seconds_exploratory": 0.0062,
+      "observations_per_second_at_median": 15881.44,
+      "invariants_and_replay": "PASS"
+    },
+    {
+      "hours": 24,
+      "region_model_records": 8,
+      "observations": 192,
+      "ordered_routes": 56,
+      "transfers": 180,
+      "scenario_sha256": "d495cdf98efbd8af9264a6653f5deed85b09b382dff3d17d6c2d98717659cfcb",
+      "report_sha256": "adff448e14ce1441cc5222f888c76b71c0f8d7d194a650fef5f3af9c42d845ec",
+      "report_bytes": 78267,
+      "runs_seconds": [
+        0.0418,
+        0.0465,
+        0.0454
+      ],
+      "median_seconds": 0.0454,
+      "p95_seconds_exploratory": 0.0465,
+      "observations_per_second_at_median": 4231.6,
+      "invariants_and_replay": "PASS"
+    },
+    {
+      "hours": 168,
+      "region_model_records": 2,
+      "observations": 336,
+      "ordered_routes": 2,
+      "transfers": 168,
+      "scenario_sha256": "85cf661e05db39e69dcd359bff34e42c06f9b28749effe3896b34bf36a092a6f",
+      "report_sha256": "e5ba69f73008e69d6c70439ce9fed617b8110df82f1709d44d9d0b0aa2c24787",
+      "report_bytes": 105376,
+      "runs_seconds": [
+        0.009,
+        0.0139,
+        0.0124
+      ],
+      "median_seconds": 0.0124,
+      "p95_seconds_exploratory": 0.0139,
+      "observations_per_second_at_median": 27131.78,
+      "invariants_and_replay": "PASS"
+    },
+    {
+      "hours": 168,
+      "region_model_records": 4,
+      "observations": 672,
+      "ordered_routes": 12,
+      "transfers": 551,
+      "scenario_sha256": "1dee2f278b5a8376385233af5b5be0f218bb1343d5af98216c2d7d5d6781cc25",
+      "report_sha256": "fc3f647b7c809a2edadd89e5e345eadacc1e58fec4d9e327e4028ac07c83225e",
+      "report_bytes": 215813,
+      "runs_seconds": [
+        0.0439,
+        0.0465,
+        0.0453
+      ],
+      "median_seconds": 0.0453,
+      "p95_seconds_exploratory": 0.0465,
+      "observations_per_second_at_median": 14834.79,
+      "invariants_and_replay": "PASS"
+    },
+    {
+      "hours": 168,
+      "region_model_records": 8,
+      "observations": 1344,
+      "ordered_routes": 56,
+      "transfers": 1252,
+      "scenario_sha256": "dca8daff53454c8e5ca684e8d9e21ab6f6a29dae8933fbb148c5003bf29fd405",
+      "report_sha256": "0ba84bab0e0b3df7a9ca2c5787fde0bcd5da2cf2f02fd68362df9dbce5cc04c8",
+      "report_bytes": 430493,
+      "runs_seconds": [
+        0.286,
+        0.2927,
+        0.2918
+      ],
+      "median_seconds": 0.2918,
+      "p95_seconds_exploratory": 0.2927,
+      "observations_per_second_at_median": 4606.51,
+      "invariants_and_replay": "PASS"
+    },
+    {
+      "hours": 744,
+      "region_model_records": 2,
+      "observations": 1488,
+      "ordered_routes": 2,
+      "transfers": 744,
+      "scenario_sha256": "e7d442e388c4ee7c2830f13a4ae774c3ae533c03dfad05306e79653b1600529a",
+      "report_sha256": "894b0029acfd961421077d427e8a6a7513d4124a8e9f6e0de196434e964a91d5",
+      "report_bytes": 452305,
+      "runs_seconds": [
+        0.0417,
+        0.0409,
+        0.0406
+      ],
+      "median_seconds": 0.0409,
+      "p95_seconds_exploratory": 0.0417,
+      "observations_per_second_at_median": 36398.36,
+      "invariants_and_replay": "PASS"
+    },
+    {
+      "hours": 744,
+      "region_model_records": 4,
+      "observations": 2976,
+      "ordered_routes": 12,
+      "transfers": 2449,
+      "scenario_sha256": "3f15a14e89bec0633d71f037d2e8d1f297d126fc3c9389ada3a6a9e0a2f2ec05",
+      "report_sha256": "87eb2644cda1e980b99e457ad87be835be8be10ec1fb05b6fbe2f9eedca0a164",
+      "report_bytes": 931146,
+      "runs_seconds": [
+        0.215,
+        0.2216,
+        0.2138
+      ],
+      "median_seconds": 0.215,
+      "p95_seconds_exploratory": 0.2216,
+      "observations_per_second_at_median": 13844.33,
+      "invariants_and_replay": "PASS"
+    },
+    {
+      "hours": 744,
+      "region_model_records": 8,
+      "observations": 5952,
+      "ordered_routes": 56,
+      "transfers": 5569,
+      "scenario_sha256": "0a713f77eaefcf5fcf95bb566a93452087300ae8a8ace35ce4c319a8706b2c0d",
+      "report_sha256": "58ad8d3e2984310214b8bba2d706af8f25f6b541bdfead192e68f806ce2a7aac",
+      "report_bytes": 1844789,
+      "runs_seconds": [
+        1.9483,
+        1.4782,
+        1.5052
+      ],
+      "median_seconds": 1.5052,
+      "p95_seconds_exploratory": 1.9483,
+      "observations_per_second_at_median": 3954.22,
+      "invariants_and_replay": "PASS"
+    }
+  ],
+  "memory_trace": {
+    "hours": 744,
+    "region_model_records": 8,
+    "peak_traced_mib": 12.56,
+    "note": "separate traced replay; timing is not comparable to untraced runs"
+  },
+  "limitation": "No model calls, cross-region network or measured serving latency; p95 from few repeats is exploratory."
+}

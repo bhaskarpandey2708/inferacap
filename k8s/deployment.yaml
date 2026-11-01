@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inferacap-gateway
+  namespace: default
+  labels:
+    app.kubernetes.io/name: inferacap
+    app.kubernetes.io/component: load-balancer
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: inferacap
+  template:
+    metadata:
+      labels:
+        app: inferacap
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+      containers:
+        - name: inferacap
+          image: inferacap/gateway:v1.0.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: gateway-ingress
+              containerPort: 8765
+            - name: ui-dashboard
+              containerPort: 8764
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8765
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8765
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "2000m"
+              memory: "1024Mi"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/gateway/sample_gateway_config.json
+              subPath: config.json
+      volumes:
+        - name: config-volume
+          configMap:
+            name: inferacap-config

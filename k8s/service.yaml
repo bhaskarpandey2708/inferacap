@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: inferacap-service
+  namespace: default
+  labels:
+    app.kubernetes.io/name: inferacap
+spec:
+  type: LoadBalancer
+  ports:
+    - name: gateway-openai
+      port: 80
+      targetPort: 8765
+      protocol: TCP
+    - name: presales-dashboard
+      port: 8764
+      targetPort: 8764
+      protocol: TCP
+  selector:
+    app: inferacap

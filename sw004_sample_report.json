@@ -1,0 +1,1300 @@
+{
+  "algorithm": "deterministic_positive_gain_transfer_heuristic",
+  "baseline_compute_usd": "574.56",
+  "baseline_required_gpu_hours": 72,
+  "billing_breakdown_usd_exact": {
+    "baseline_variable_usage": "287.28",
+    "candidate_variable_usage": "0",
+    "fixed_commitment": "287.28"
+  },
+  "billing_terms": {
+    "ASIA/m1": {
+      "fixed_committed_gpus": 0,
+      "fixed_rate_usd_gpu_hour": null,
+      "on_demand_price_end_utc": "2026-10-27T00:00:00Z",
+      "on_demand_price_start_utc": "2026-10-26T00:00:00Z",
+      "on_demand_price_windows": null,
+      "overflow_rate_usd_gpu_hour": "3.99",
+      "owned_capacity_gpus": null,
+      "owned_cash_basis": null,
+      "reservation_end_utc": null,
+      "reservation_region": null,
+      "reservation_start_utc": null,
+      "synthetic_price_window_assumed": true,
+      "synthetic_reservation_terms_assumed": false
+    },
+    "EU/m1": {
+      "fixed_committed_gpus": 3,
+      "fixed_rate_usd_gpu_hour": "3.99",
+      "on_demand_price_end_utc": null,
+      "on_demand_price_start_utc": null,
+      "on_demand_price_windows": null,
+      "overflow_rate_usd_gpu_hour": "3.99",
+      "owned_capacity_gpus": null,
+      "owned_cash_basis": null,
+      "reservation_end_utc": "2026-10-27T00:00:00Z",
+      "reservation_region": "EU",
+      "reservation_start_utc": "2026-10-26T00:00:00Z",
+      "synthetic_price_window_assumed": false,
+      "synthetic_reservation_terms_assumed": false
+    },
+    "US/m1": {
+      "fixed_committed_gpus": 0,
+      "fixed_rate_usd_gpu_hour": null,
+      "on_demand_price_end_utc": "2026-10-27T00:00:00Z",
+      "on_demand_price_start_utc": "2026-10-26T00:00:00Z",
+      "on_demand_price_windows": null,
+      "overflow_rate_usd_gpu_hour": "3.99",
+      "owned_capacity_gpus": null,
+      "owned_cash_basis": null,
+      "reservation_end_utc": null,
+      "reservation_region": null,
+      "reservation_start_utc": null,
+      "synthetic_price_window_assumed": true,
+      "synthetic_reservation_terms_assumed": false
+    }
+  },
+  "billing_types": {
+    "ASIA/m1": "on_demand",
+    "EU/m1": "noncancellable_reservation",
+    "US/m1": "on_demand"
+  },
+  "candidate_compute_usd": "287.28",
+  "candidate_required_gpu_hours": 72,
+  "currency": "USD",
+  "exported_utc": "2026-10-27T04:46:53.957106Z",
+  "hourly": [
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T00:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T01:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T02:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T03:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T04:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T05:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T06:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T07:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T08:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T09:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T10:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T11:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T12:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T13:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T14:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T15:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T16:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T17:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T18:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T19:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T20:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T21:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T22:00:00Z"
+    },
+    {
+      "baseline_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 3
+      },
+      "candidate_assignments": [
+        {
+          "destination": "EU",
+          "model": "m1",
+          "origin": "US",
+          "requests": 100
+        }
+      ],
+      "candidate_required_gpus": {
+        "ASIA/m1": 0,
+        "EU/m1": 3,
+        "US/m1": 0
+      },
+      "origin_latency_budgets_ms": {
+        "ASIA/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "EU/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        },
+        "US/m1": {
+          "max_e2e_ms": "400",
+          "max_ttft_ms": "100"
+        }
+      },
+      "origin_requests": {
+        "ASIA/m1": 0,
+        "EU/m1": 0,
+        "US/m1": 100
+      },
+      "timestamp_utc": "2026-10-26T23:00:00Z"
+    }
+  ],
+  "hours": 24,
+  "input_provenance": {
+    "observations": [
+      {
+        "rows": 72,
+        "source_kind": "synthetic",
+        "source_ref": "fixture"
+      }
+    ],
+    "regions": [
+      {
+        "model": "m1",
+        "region": "ASIA",
+        "source_kind": "synthetic",
+        "source_ref": "fixture"
+      },
+      {
+        "model": "m1",
+        "region": "EU",
+        "source_kind": "synthetic",
+        "source_ref": "fixture"
+      },
+      {
+        "model": "m1",
+        "region": "US",
+        "source_kind": "synthetic",
+        "source_ref": "fixture"
+      }
+    ],
+    "routes": [
+      {
+        "destination": "EU",
+        "model": "m1",
+        "origin": "US",
+        "source_kind": "synthetic",
+        "source_ref": "fixture_route"
+      }
+    ]
+  },
+  "input_schema_version": 1,
+  "limitations": [
+    "Synthetic or supplied throughput and route TTFT/end-to-end p95 estimates are not measured SLA or p99 guarantees unless explicitly sourced.",
+    "Route eligibility checks both estimated TTFT p95 and end-to-end p95 against each origin-hour budget; cache, queuing and tail behavior still require independent measurement.",
+    "Fixed reservations are scoped to one region/model for the full scenario; mid-period cancellation and globally fungible commitments are unsupported.",
+    "Owned GPUs have no current GPU rental invoice in this model; hardware purchase/depreciation and future procurement avoidance are excluded, while incremental power/operations must be supplied separately.",
+    "Synthetic reservation terms omitted from input assume the same fixed and overflow rate and the scenario's region/window.",
+    "Synthetic flat on-demand prices without explicit UTC dates assume validity over the scenario window; scheduled prices use explicit contiguous UTC windows.",
+    "The perfect-pooling bound is a fractional compute-only relaxation, not a feasible route plan or net cash forecast.",
+    "Candidate is feasible but not proven globally optimal.",
+    "This report does not establish a customer invoice saving without contract evidence."
+  ],
+  "migration_usd": "0.00",
+  "net_current_cash_delta_usd": "279.28",
+  "network_usd": "0.00",
+  "operations_usd": "0.00",
+  "perfect_pooling_bound_scope": "Compute invoice lower bound only: ignore routes, latency, residency, network and software costs; allow fractional incremental GPUs while retaining fixed noncancellable charges.",
+  "perfect_pooling_compute_lower_bound_usd": "287.28",
+  "period_end_utc": "2026-10-27T00:00:00Z",
+  "period_start_utc": "2026-10-26T00:00:00Z",
+  "rounding_adjustment_usd": "0.00",
+  "route_latency_terms": [
+    {
+      "destination": "EU",
+      "estimated_e2e_p95_ms": "200",
+      "estimated_ttft_p95_ms": "80",
+      "model": "m1",
+      "origin": "US"
+    }
+  ],
+  "scenario_id": "synthetic_three_region_day",
+  "scenario_sha256": "92a83a8c730b9f643d50b85d21e3ecbbedd2a1b1b52bd35d80c0124567bd9964",
+  "software_usd": "8.00",
+  "source_kinds": [
+    "synthetic"
+  ],
+  "status": "FEASIBLE_HEURISTIC",
+  "theoretical_gpu_hours_reduction": 0,
+  "transfers": [
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T00:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T01:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T02:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T03:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T04:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T05:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T06:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T07:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T08:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T09:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T10:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T11:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T12:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T13:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T14:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T15:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T16:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T17:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T18:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T19:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T20:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T21:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T22:00:00Z"
+    },
+    {
+      "destination": "EU",
+      "model": "m1",
+      "network_usd_exact": "0.000010",
+      "origin": "US",
+      "requests": 100,
+      "timestamp_utc": "2026-10-26T23:00:00Z"
+    }
+  ],
+  "version": "0.7.3"
+}

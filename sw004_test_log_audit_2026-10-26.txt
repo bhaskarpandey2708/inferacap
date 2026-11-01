@@ -1,0 +1,36 @@
+SW-004 input-contract/provenance and numerical audit
+UTC: 2026-10-26T06:02:46.491873+00:00
+Test interpreter: Python 3.12.15
+Command: /opt/homebrew/bin/python3.12 -m unittest -v test_sw004_simulator
+Exit code: 0
+JSON/CSV costs and assignments parity: True
+Seeded invariant scenarios: 50
+
+sw004_simulator.py SHA-256: 197f48d8ed4f8b8dc86948e7808b2a13936d4d11ddf2d8bef5992c7c01e51ef7 bytes: 23390
+test_sw004_simulator.py SHA-256: 77a2b33ee540eaea43b292106be34835c60e694f802f66fa836858a8b5e48289 bytes: 13697
+SW004_README.md SHA-256: cc1a2378cede85490f7c24e423333093365e372d7ab549f610769e43890c0847 bytes: 2552
+sw004_sample_scenario.json SHA-256: 9f2d9d2a84bd645672988a221d563ac9d7d7b1b16a02ecedeba675bf3d9996ca bytes: 27835
+sw004_sample_config.json SHA-256: 538480fac2251ce5f34265fd722111d79c46de325c8f0fe329d3b2c198bb77fb bytes: 1507
+sw004_sample_observations.csv SHA-256: deb486ffd08ff4b273355d822a1ec22414f84eec8ce5001e6781de7e3283eb44 bytes: 6645
+sw004_sample_report.json SHA-256: e7a04e3d1ea09ec34cbce81abe063fffd5d2d07676fc72257247cb4da3899c66 bytes: 28507
+sw004_sample_report.csv SHA-256: e49a593449d759c715e6120eaa25c968b9756b3bf7e45c543ca6ea430bbcd661 bytes: 60099
+
+
+test_commitment_has_no_current_compute_cash_saving (test_sw004_simulator.SimulatorTests.test_commitment_has_no_current_compute_cash_saving) ... ok
+test_csv_formula_text_is_escaped (test_sw004_simulator.SimulatorTests.test_csv_formula_text_is_escaped) ... ok
+test_csv_input_and_report_export (test_sw004_simulator.SimulatorTests.test_csv_input_and_report_export) ... ok
+test_every_origin_demand_is_conserved_and_host_capacity_respected (test_sw004_simulator.SimulatorTests.test_every_origin_demand_is_conserved_and_host_capacity_respected) ... ok
+test_explicit_allowlist_and_capacity (test_sw004_simulator.SimulatorTests.test_explicit_allowlist_and_capacity) ... ok
+test_infeasible_capacity_never_returns_savings (test_sw004_simulator.SimulatorTests.test_infeasible_capacity_never_returns_savings) ... ok
+test_malformed_and_missing_records_fail (test_sw004_simulator.SimulatorTests.test_malformed_and_missing_records_fail) ... ok
+test_negative_net_preserved (test_sw004_simulator.SimulatorTests.test_negative_net_preserved) ... ok
+test_reverse_edge_does_not_authorize_transfer (test_sw004_simulator.SimulatorTests.test_reverse_edge_does_not_authorize_transfer) ... ok
+test_seeded_financial_and_capacity_invariants (test_sw004_simulator.SimulatorTests.test_seeded_financial_and_capacity_invariants) ... ok
+test_strict_latency_prevents_remote_route (test_sw004_simulator.SimulatorTests.test_strict_latency_prevents_remote_route) ... ok
+test_three_region_thirty_day_replay (test_sw004_simulator.SimulatorTests.test_three_region_thirty_day_replay) ... ok
+test_whole_gpu_reference_and_explicit_zero (test_sw004_simulator.SimulatorTests.test_whole_gpu_reference_and_explicit_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.090s
+
+OK

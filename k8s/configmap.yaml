@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: inferacap-config
+  namespace: default
+data:
+  config.json: |
+    {
+      "gateway_id": "inferacap-k8s-cluster",
+      "listen_host": "0.0.0.0",
+      "listen_port": 8765,
+      "default_ttft_budget_ms": 400.0,
+      "default_e2e_budget_ms": 3000.0,
+      "request_timeout_seconds": 30.0,
+      "regions": {
+        "US": {
+          "backends": ["http://vllm-us-service:8000"],
+          "models": ["llama-3.1-8b", "qwen2.5-coder"],
+          "capacity_concurrent_requests": 32,
+          "billing_type": "on_demand",
+          "on_demand_rate_gpu_hour": 3.99,
+          "committed_gpus": 0,
+          "overflow_rate_gpu_hour": 3.99,
+          "requests_per_gpu_hour": 3600.0
+        },
+        "EU": {
+          "backends": ["http://vllm-eu-service:8000"],
+          "models": ["llama-3.1-8b", "qwen2.5-coder"],
+          "capacity_concurrent_requests": 64,
+          "billing_type": "reservation",
+          "on_demand_rate_gpu_hour": 3.20,
+          "committed_gpus": 16,
+          "overflow_rate_gpu_hour": 3.20,
+          "requests_per_gpu_hour": 3600.0
+        }
+      },
+      "allowed_routes": [
+        {
+          "origin_region": "US",
+          "destination_region": "EU",
+          "model": "*",
+          "residency_permission": true,
+          "estimated_rtt_ms": 75.0,
+          "max_allowed_ttft_ms": 400.0,
+          "egress_cost_per_gb": 0.02
+        }
+      ]
+    }

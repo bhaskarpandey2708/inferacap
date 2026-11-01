@@ -1,0 +1,25 @@
+{
+  "scenario_origin": "sw004_sample_scenario.json",
+  "template_hours": 24,
+  "synthetic_hours": 720,
+  "observation_rows": 2160,
+  "runs": 10,
+  "elapsed_seconds": [
+    0.911,
+    0.956,
+    0.968,
+    0.997,
+    1.027,
+    1.039,
+    1.067,
+    1.087,
+    1.091,
+    1.096
+  ],
+  "peak_traced_mib": 8.56,
+  "deterministic": true,
+  "scenario_sha256": "c720f54dc0c8e61fda7dbb0f74c72952bbe37ac40906fa12e542229fadac8d04",
+  "status": "FEASIBLE_HEURISTIC",
+  "python": "3.12.15",
+  "platform": "macOS-27.0.1-arm64-arm-64bit"
+}

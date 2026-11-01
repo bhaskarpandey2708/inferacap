@@ -1,0 +1,17 @@
+SW-004 browser download QA
+UTC: 2026-10-26T06:32:07.325014+00:00
+Browser: isolated headless Google Chrome on this Mac
+Server: temporary 127.0.0.1 loopback port
+Source: current v0.5.1 Drive-readback simulator and UI
+Actions: load bundled synthetic JSON/CSV, run, click Download JSON report and Download CSV report
+Result: two browser-created files; parsed and validated both
+Matched fields: scenario SHA-256, exported UTC, baseline compute 574.56 USD, candidate compute 287.28 USD, perfect-pooling compute lower bound 287.28 USD, net cash delta 279.28 USD
+CSV: 112 records including cost, assignment and provenance; values match JSON
+Scope: synthetic browser export path. Operator input, independent security and Bhaskar Pandey acceptance remain open.
+
+synthetic_three_region_day_report_20261026T063133.070161Z.csv SHA-256: 8b129f5f6c90b076890295c2f81361be4874a0709325a06187479c1be76fd5cd bytes: 78512
+synthetic_three_region_day_report_20261026T063133.070161Z.json SHA-256: ac5836d3d3dd07cd03c7b8df5bb926b98219491de93b32b8f9d09fa6d088a04c bytes: 29061
+
+Browser save-flow addendum: clicked Save scenario JSON and Save observations CSV with download behavior explicitly enabled. Both browser-created files are byte-identical to the bundled Drive-readback inputs. Reloading the saved pair into run_scenario reproduced net cash delta 279.28 USD.
+sw004_scenario.json SHA-256: 538480fac2251ce5f34265fd722111d79c46de325c8f0fe329d3b2c198bb77fb bytes: 1507
+sw004_observations.csv SHA-256: deb486ffd08ff4b273355d822a1ec22414f84eec8ce5001e6781de7e3283eb44 bytes: 6645

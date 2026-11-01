@@ -1,0 +1,21 @@
+SW-004 prototype QA run after Drive readback
+UTC: 2026-10-26T04:51:22.826655+00:00
+Python: 3.12.15
+Command: PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=. /opt/homebrew/bin/python3.12 -m unittest -v test_sw004_simulator
+Exit code: 0
+
+test_commitment_has_no_current_compute_cash_saving (test_sw004_simulator.SimulatorTests.test_commitment_has_no_current_compute_cash_saving) ... ok
+test_every_origin_demand_is_conserved_and_host_capacity_respected (test_sw004_simulator.SimulatorTests.test_every_origin_demand_is_conserved_and_host_capacity_respected) ... ok
+test_explicit_allowlist_and_capacity (test_sw004_simulator.SimulatorTests.test_explicit_allowlist_and_capacity) ... ok
+test_infeasible_capacity_never_returns_savings (test_sw004_simulator.SimulatorTests.test_infeasible_capacity_never_returns_savings) ... ok
+test_malformed_and_missing_records_fail (test_sw004_simulator.SimulatorTests.test_malformed_and_missing_records_fail) ... ok
+test_negative_net_preserved (test_sw004_simulator.SimulatorTests.test_negative_net_preserved) ... ok
+test_reverse_edge_does_not_authorize_transfer (test_sw004_simulator.SimulatorTests.test_reverse_edge_does_not_authorize_transfer) ... ok
+test_strict_latency_prevents_remote_route (test_sw004_simulator.SimulatorTests.test_strict_latency_prevents_remote_route) ... ok
+test_three_region_thirty_day_replay (test_sw004_simulator.SimulatorTests.test_three_region_thirty_day_replay) ... ok
+test_whole_gpu_reference_and_explicit_zero (test_sw004_simulator.SimulatorTests.test_whole_gpu_reference_and_explicit_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.085s
+
+OK

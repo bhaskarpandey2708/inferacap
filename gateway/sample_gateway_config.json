@@ -1,0 +1,69 @@
+{
+  "gateway_id": "inferacap-prod-gateway-01",
+  "listen_host": "127.0.0.1",
+  "listen_port": 8765,
+  "default_ttft_budget_ms": 350.0,
+  "default_e2e_budget_ms": 2500.0,
+  "request_timeout_seconds": 15.0,
+  "regions": {
+    "US": {
+      "backends": ["http://127.0.0.1:8001"],
+      "models": ["llama-3.1-8b", "gpt-4o-mini"],
+      "capacity_concurrent_requests": 2,
+      "billing_type": "on_demand",
+      "on_demand_rate_gpu_hour": 4.00,
+      "committed_gpus": 0,
+      "overflow_rate_gpu_hour": 4.00,
+      "requests_per_gpu_hour": 3600.0
+    },
+    "EU": {
+      "backends": ["http://127.0.0.1:8002"],
+      "models": ["llama-3.1-8b", "gpt-4o-mini"],
+      "capacity_concurrent_requests": 10,
+      "billing_type": "reservation",
+      "on_demand_rate_gpu_hour": 3.50,
+      "committed_gpus": 4,
+      "overflow_rate_gpu_hour": 3.50,
+      "requests_per_gpu_hour": 3600.0
+    },
+    "ASIA": {
+      "backends": ["http://127.0.0.1:8003"],
+      "models": ["llama-3.1-8b"],
+      "capacity_concurrent_requests": 5,
+      "billing_type": "owned",
+      "on_demand_rate_gpu_hour": 0.00,
+      "committed_gpus": 0,
+      "overflow_rate_gpu_hour": 0.00,
+      "requests_per_gpu_hour": 3600.0
+    }
+  },
+  "allowed_routes": [
+    {
+      "origin_region": "US",
+      "destination_region": "EU",
+      "model": "*",
+      "residency_permission": true,
+      "estimated_rtt_ms": 75.0,
+      "max_allowed_ttft_ms": 300.0,
+      "egress_cost_per_gb": 0.02
+    },
+    {
+      "origin_region": "US",
+      "destination_region": "ASIA",
+      "model": "*",
+      "residency_permission": true,
+      "estimated_rtt_ms": 180.0,
+      "max_allowed_ttft_ms": 250.0,
+      "egress_cost_per_gb": 0.05
+    },
+    {
+      "origin_region": "EU",
+      "destination_region": "US",
+      "model": "*",
+      "residency_permission": false,
+      "estimated_rtt_ms": 75.0,
+      "max_allowed_ttft_ms": 300.0,
+      "egress_cost_per_gb": 0.02
+    }
+  ]
+}

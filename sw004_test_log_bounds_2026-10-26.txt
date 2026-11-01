@@ -1,0 +1,46 @@
+SW-004 numeric input-bound regression QA
+UTC: 2026-10-26T06:28:42.924720+00:00
+Test interpreter: Python 3.12.15
+Command: /opt/homebrew/bin/python3.12 -m unittest -v test_sw004_simulator test_sw004_ui
+Exit code: 0
+Pre-fix reproduction: price 1e100 raised decimal.InvalidOperation
+Post-fix: price 1e100 and 5000-digit JSON integer return HTTP 400
+JSON/CSV cost, GPU-hour and assignment parity: True
+CLI report CSV date matches JSON: True
+Seeded invariant scenarios: 50
+Enumerated small integer pooling comparisons: 60
+
+sw004_simulator.py SHA-256: 6d13f985d41b85eb980596dc3a9a90547d4911ef987ca0cd0cbfa1aa91758923 bytes: 27172
+test_sw004_simulator.py SHA-256: d391a301bea6baa7fbf7d46cafc8720e8dee3eb029c2f61080c4b014d3e7b3f5 bytes: 17195
+sw004_ui.py SHA-256: 89863bba6c0d4de12f8a028f4bf1dd4bacc313e4d753ec6aade2ec8e38c96c5b bytes: 5651
+test_sw004_ui.py SHA-256: 53399bbd5411acf28e8eddff309bfe2612d57231bba95bfc68e6b8a75d7684b2 bytes: 4201
+SW004_README.md SHA-256: d8b968856ba395c75f4fc1d70e873ed78c389583b6d92d303bab9a6308c63e6b bytes: 3515
+sw004_sample_report.json SHA-256: 97136b3f40e815871886e0ed07d2b9777094385d74c0fcedd02a0b6eb08b2b21 bytes: 29061
+sw004_sample_report.csv SHA-256: 4afc30a9f2901aebd4bf6916f9033c745735637ebc1f2be34b784769df9bf810 bytes: 78512
+
+
+test_commitment_has_no_current_compute_cash_saving (test_sw004_simulator.SimulatorTests.test_commitment_has_no_current_compute_cash_saving) ... ok
+test_csv_formula_text_is_escaped (test_sw004_simulator.SimulatorTests.test_csv_formula_text_is_escaped) ... ok
+test_csv_input_and_report_export (test_sw004_simulator.SimulatorTests.test_csv_input_and_report_export) ... ok
+test_decimal_context_is_local_and_extreme_zero_is_normalized (test_sw004_simulator.SimulatorTests.test_decimal_context_is_local_and_extreme_zero_is_normalized) ... ok
+test_every_origin_demand_is_conserved_and_host_capacity_respected (test_sw004_simulator.SimulatorTests.test_every_origin_demand_is_conserved_and_host_capacity_respected) ... ok
+test_explicit_allowlist_and_capacity (test_sw004_simulator.SimulatorTests.test_explicit_allowlist_and_capacity) ... ok
+test_infeasible_capacity_never_returns_savings (test_sw004_simulator.SimulatorTests.test_infeasible_capacity_never_returns_savings) ... ok
+test_malformed_and_missing_records_fail (test_sw004_simulator.SimulatorTests.test_malformed_and_missing_records_fail) ... ok
+test_negative_net_preserved (test_sw004_simulator.SimulatorTests.test_negative_net_preserved) ... ok
+test_perfect_pooling_bound_retains_fixed_commitment_and_ignores_routes (test_sw004_simulator.SimulatorTests.test_perfect_pooling_bound_retains_fixed_commitment_and_ignores_routes) ... ok
+test_pooling_bound_below_enumerated_integer_optimum (test_sw004_simulator.SimulatorTests.test_pooling_bound_below_enumerated_integer_optimum) ... ok
+test_reverse_edge_does_not_authorize_transfer (test_sw004_simulator.SimulatorTests.test_reverse_edge_does_not_authorize_transfer) ... ok
+test_seeded_financial_and_capacity_invariants (test_sw004_simulator.SimulatorTests.test_seeded_financial_and_capacity_invariants) ... ok
+test_strict_latency_prevents_remote_route (test_sw004_simulator.SimulatorTests.test_strict_latency_prevents_remote_route) ... ok
+test_three_region_thirty_day_replay (test_sw004_simulator.SimulatorTests.test_three_region_thirty_day_replay) ... ok
+test_whole_gpu_reference_and_explicit_zero (test_sw004_simulator.SimulatorTests.test_whole_gpu_reference_and_explicit_zero) ... ok
+test_input_errors_are_returned_without_report (test_sw004_ui.UITests.test_input_errors_are_returned_without_report) ... ok
+test_rejects_cross_origin_or_wrong_token (test_sw004_ui.UITests.test_rejects_cross_origin_or_wrong_token) ... ok
+test_sample_csv_run_returns_dated_reports (test_sw004_ui.UITests.test_sample_csv_run_returns_dated_reports) ... ok
+test_serves_only_fixed_local_interface_resources (test_sw004_ui.UITests.test_serves_only_fixed_local_interface_resources) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.714s
+
+OK
